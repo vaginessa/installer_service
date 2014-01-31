@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Updator.iml" filepath="$PROJECT_DIR$/Updator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/downloadService/downloadService.iml" filepath="$PROJECT_DIR$/downloadService/downloadService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/installerSystemService/installerSystemService.iml" filepath="$PROJECT_DIR$/installerSystemService/installerSystemService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/updator/updator.iml" filepath="$PROJECT_DIR$/updator/updator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
+    </modules>
+  </component>
+</project>
+

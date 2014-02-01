@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.samsung.installersystemservice">
 
     <application android:allowBackup="true"
@@ -7,11 +8,14 @@
         android:theme="@style/AppTheme">
 
         <receiver android:name=".SystemStartupBroadcastReceiver"
-            android:enabled="true" android:exported="true">
+                  android:enabled="true"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".InstallerService" android:enabled="true" android:exported="true"></service>
 
 
     </application>

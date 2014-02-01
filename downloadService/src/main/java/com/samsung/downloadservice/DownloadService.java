@@ -21,10 +21,9 @@ public class DownloadService extends IntentService {
     /**
      * Creates an DownloadService.  Invoked by your subclass's constructor.
      *
-     * @param name Used to name the worker thread, important only for debugging.
      */
-    public DownloadService(String name) {
-        super(name);
+    public DownloadService() {
+        super("Download Service");
     }
 
     interface OnDownloadDoneListener {

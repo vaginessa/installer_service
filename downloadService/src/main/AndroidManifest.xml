@@ -6,8 +6,7 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme">
 
-        <receiver android:name="com.samsung.downloadservice.DownloadRequestBroadcastReceiver"
-                  android:permission="com.samsung.downloadservice.DownloadRequestBroadcastReceiver">
+        <receiver android:name=".DownloadRequestBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.samsung.downloadservice.DownloadRequestBroadcastReceiver" />
             </intent-filter>
@@ -16,7 +15,5 @@
 
     </application>
 
-
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>

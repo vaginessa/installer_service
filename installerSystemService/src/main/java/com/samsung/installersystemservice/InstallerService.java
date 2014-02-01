@@ -32,7 +32,7 @@ public class InstallerService extends IntentService  {
             Log.i(TAG,"installer handling message");
 
             Intent i = new Intent();
-            i.setClassName("com.samsung.downloadservice","DownloadRequestBroadcastReceiver");
+            i.setClassName("com.samsung.downloadservice","com.samsung.downloadservice.DownloadService");
             startService(i);
 
             // Normally we would do some work here, like download a file.

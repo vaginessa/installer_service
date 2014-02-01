@@ -2,6 +2,7 @@ package com.samsung.downloadservice;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.*;
 import android.util.Log;
 
 import java.io.File;
@@ -86,4 +87,19 @@ public class DownloadService extends IntentService {
             e.printStackTrace();
         }
     }
-}
+
+
+    @Override
+    public void onCreate() {
+
+
+        Log.i(TAG,"onCreate installer service");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return  0;
+    }
+
+
+    }

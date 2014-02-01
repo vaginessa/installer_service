@@ -31,7 +31,10 @@ public class InstallerService extends IntentService  {
         public void handleMessage(Message msg) {
             Log.i(TAG,"installer handling message");
 
-            
+            Intent i = new Intent();
+            i.setClassName("com.samsung.downloadservice","DownloadRequestBroadcastReceiver");
+            startService(i);
+
             // Normally we would do some work here, like download a file.
             // For our sample, we just sleep for 5 seconds.
             long endTime = System.currentTimeMillis() + 5*1000;

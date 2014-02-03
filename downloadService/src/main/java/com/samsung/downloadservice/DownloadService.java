@@ -2,8 +2,9 @@ package com.samsung.downloadservice;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.*;
 import android.util.Log;
+
+import com.samsung.models.DownloadRequest;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,6 +71,7 @@ public class DownloadService extends IntentService {
                 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                Log.d(TAG, "Error: " + e);
             } catch (IOException e) {
                 Log.d(TAG, "Error: " + e);
             }
@@ -101,6 +103,24 @@ public class DownloadService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG,"Download Service::onStartCommand ");
+
+        DownloadRequest downloadRequest = (DownloadRequest)intent.getSerializableExtra(DownloadRequest.INTENT_EXTRA_KEY);
+
+        Log.i(TAG,"Path= "+downloadRequest.path+"   URL "+downloadRequest.url);
+
+        download(downloadRequest,new OnDownloadDoneListener() {
+             public void onDownloadDone(DownloadRequest downloadRequest) {
+
+                 Intent i = new Intent();
+                 i.setClassName("com.samsung.installersystemservice"
+                               ,"com.samsung.installersystemservice.DownloadDoneBroadcastReceiver");
+                 i.putExtra(DownloadRequest.INTENT_EXTRA_KEY,downloadRequest);
+                 sendBroadcast(i);
+
+             }
+        });
+
+
         return  0;
     }
 

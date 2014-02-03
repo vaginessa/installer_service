@@ -1,17 +1,15 @@
 package com.samsung.installersystemservice;
 
 import android.app.IntentService;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 import android.os.Process;
+
+import com.samsung.models.DownloadRequest;
 
 /**
  * Created by mkluver on 1/29/14.
@@ -32,9 +30,10 @@ public class InstallerService extends IntentService  {
             Log.i(TAG,"installer handling message");
 
             Intent i = new Intent();
-            //i.setClassName("com.samsung.downloadservice","com.samsung.downloadservice.DownloadService");
-            //startService(i);
             i.setClassName("com.samsung.downloadservice","com.samsung.downloadservice.DownloadRequestBroadcastReceiver");
+
+            DownloadRequest downloadRequest = new DownloadRequest("http://google.com/the_download_file_dot.apk","the_file_dot.apk");
+            i.putExtra(DownloadRequest.INTENT_EXTRA_KEY,downloadRequest);
             sendBroadcast(i);
 
 

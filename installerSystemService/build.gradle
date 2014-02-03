@@ -1,5 +1,9 @@
 apply plugin: 'android'
 
+dependencies {
+    compile project(':volley')
+}
+
 android {
     compileSdkVersion 14
     buildToolsVersion "19.0.1"

@@ -15,6 +15,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".DownloadDoneBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.samsung.installersystemservice.DownloadDoneBroadcastReceiver" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".InstallerService" android:enabled="true" android:exported="true"></service>
 
 

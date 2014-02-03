@@ -25,6 +25,7 @@ public class DownloadService extends IntentService {
      */
     public DownloadService() {
         super("Download Service");
+        Log.i(TAG,"DownloadService constructor called");
     }
 
     interface OnDownloadDoneListener {
@@ -36,6 +37,7 @@ public class DownloadService extends IntentService {
         new Thread(new Runnable(){public void run() {
 
             try {
+                Log.i(TAG,"Download Thread running");
 
                 URL url = new URL(downloadRequest.url);
                 File file = new File(downloadRequest.path);
@@ -93,13 +95,14 @@ public class DownloadService extends IntentService {
     public void onCreate() {
 
 
-        Log.i(TAG,"onCreate installer service");
+        Log.i(TAG,"onCreate download service");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG,"Download Service::onStartCommand ");
         return  0;
     }
 
 
-    }
+}

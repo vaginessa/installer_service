@@ -24,7 +24,6 @@ public class DownloadService extends IntentService {
 
     /**
      * Creates an DownloadService.  Invoked by your subclass's constructor.
-     *
      */
     public DownloadService() {
         super("Download Service");
@@ -38,15 +37,9 @@ public class DownloadService extends IntentService {
 
     private void download(final DownloadRequest downloadRequest, final OnDownloadDoneListener downloadDoneListener){
         new Thread(new Runnable(){public void run() {
-
             try {
                 File root = android.os.Environment.getExternalStorageDirectory();
                 String appPath = getApplicationContext().getFilesDir().getAbsolutePath();
-                Log.i(TAG, "root=" + root + "           appPath=" + appPath);
-
-
-                Log.i(TAG,"Download Thread running");
-
                 URL url = new URL(downloadRequest.url);
                 File file = new File(root,"the_file.apk");//downloadRequest.path);
                 Log.i(TAG, "Downloading " + downloadRequest.url + " --> " + file);
@@ -89,7 +82,6 @@ public class DownloadService extends IntentService {
             } catch (IOException e) {
                 Log.d(TAG, "Error: " + e);
             }
-
         }}).start();
     }
 
@@ -98,8 +90,6 @@ public class DownloadService extends IntentService {
         try {
             Log.i(TAG,"DownloadService :: onHandleIntent ");
             //DownloadRequest downloadRequest = (DownloadRequest)intent.getSerializableExtra("DOWNLOAD_REQUEST");
-
-
         }
         catch (ClassCastException e){
             e.printStackTrace();
@@ -109,17 +99,14 @@ public class DownloadService extends IntentService {
 
     @Override
     public void onCreate() {
-
-
+        super.onCreate();
         Log.i(TAG,"onCreate download service");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG,"Download Service::onStartCommand ");
-
         DownloadRequest downloadRequest = (DownloadRequest)intent.getSerializableExtra(DownloadRequest.INTENT_EXTRA_KEY);
-
         Log.i(TAG,"Path= "+downloadRequest.path+"   URL "+downloadRequest.url);
 
         download(downloadRequest,new OnDownloadDoneListener() {
@@ -133,8 +120,6 @@ public class DownloadService extends IntentService {
 
              }
         });
-
-
         return  0;
     }
 

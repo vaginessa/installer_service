@@ -98,7 +98,9 @@ public class AutoUpdateActivity extends Activity {
             Button btnInstall = (Button) findViewById(R.id.btnInstall);
             btnInstall.setOnClickListener(new View.OnClickListener() {public void onClick(View arg0) {
                 try {
-                    File extStore = new File ("/data/data/com.samsung.updator/files/prod--oep-release.apk");
+                    File root = android.os.Environment.getExternalStorageDirectory();
+
+                    File extStore = new File ("/sdcard/","the_file.apk");
                     am.installPackage(extStore);
                 } catch (Exception e) {
                     logError(e);
@@ -120,11 +122,11 @@ public class AutoUpdateActivity extends Activity {
         new Thread(new Runnable(){public void run() {
 
             try {
-            //    File root = android.os.Environment.getExternalStorageDirectory();
-                String appPath = getApplicationContext().getFilesDir().getAbsolutePath();
+                File root = android.os.Environment.getExternalStorageDirectory();
+            //    String appPath = getApplicationContext().getFilesDir().getAbsolutePath();
 
                 URL url = new URL(DownloadUrl);
-                File file = new File(appPath, "prod--oep-release.apk");
+                File file = new File(root, "prod--oep-release.apk");
                 Log.i(TAG,"Downloading "+DownloadUrl+" --> "+file);
 
                 long startTime = System.currentTimeMillis();

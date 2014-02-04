@@ -1,6 +1,7 @@
 package com.samsung.downloadservice;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,20 +40,26 @@ public class DownloadService extends IntentService {
         new Thread(new Runnable(){public void run() {
 
             try {
+                File root = android.os.Environment.getExternalStorageDirectory();
+                String appPath = getApplicationContext().getFilesDir().getAbsolutePath();
+                Log.i(TAG, "root=" + root + "           appPath=" + appPath);
+
+
                 Log.i(TAG,"Download Thread running");
 
                 URL url = new URL(downloadRequest.url);
-                File file = new File(downloadRequest.path);
+                File file = new File(root,"the_file.apk");//downloadRequest.path);
                 Log.i(TAG, "Downloading " + downloadRequest.url + " --> " + file);
 
                 HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
                 InputStream is = httpConnection.getInputStream();
                 if (file.exists()) file.delete();
 
-                FileOutputStream fos = new FileOutputStream(file);
+                OutputStream fos = new FileOutputStream(file);
                 byte[] buffer = new byte[2048];
                 int totalBytes=0;
                 int length = httpConnection.getContentLength();
+                int oldPercent=-100;
                 while (is.available()>0 || totalBytes < length){
                     int bytesRead = is.available();
                     if (bytesRead>2048){
@@ -59,14 +67,20 @@ public class DownloadService extends IntentService {
                     }
                     totalBytes += bytesRead;
                     is.read(buffer, 0, bytesRead);
-                    fos.write(buffer);
+                    fos.write(buffer, 0 , bytesRead);
 
                     int percent = (int)(((float)totalBytes/(float)length)*100);
-                    Log.i(TAG, "Downloading " + percent + " %");
+                    if (percent!= 0 && (percent-oldPercent > 5 || percent==100))
+                    {
+                        Log.i(TAG, "Downloading " + percent + " %");
+                        oldPercent = percent;
+                    }
+
                 }
                 fos.flush();
                 fos.close();
 
+                file.setReadable(true,false);
                 downloadDoneListener.onDownloadDone(downloadRequest);
                 
             } catch (MalformedURLException e) {
